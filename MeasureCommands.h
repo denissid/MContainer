@@ -29,7 +29,7 @@ namespace MeasureSequenceContainers
 		return diff/static_cast<double>(k);
 	}
 
-	double PushBackTime(std::forward_list<int>& v)
+	double PushFrontTime(std::forward_list<int>& v)
 	{
 		int k=10;
 		long diff=0;
