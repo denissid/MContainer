@@ -28,7 +28,7 @@ class TimeTracker
 				throw std::runtime_error("Error clock_gettime");
 			}
 
-			return (ts.tv_sec-time_spec_.tv_sec)*1000 + (ts.tv_nsec - time_spec_.tv_nsec)/1e6;
+			return (ts.tv_sec-time_spec_.tv_sec)*1000000 + (ts.tv_nsec - time_spec_.tv_nsec)/1000;
 		}
 
 		~TimeTracker()
