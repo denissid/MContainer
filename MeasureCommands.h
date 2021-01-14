@@ -258,7 +258,7 @@ namespace MeasureAssignment
         for (int i=0;i<100;++i)
         {
             oa.set (s);
-            //oa.set ("");
+            oa.set("");
         }
 
 		double timeStop = mtime.Stop();
@@ -278,7 +278,7 @@ namespace MeasureAssignment
         for (int i=0;i<100;++i)
         {
             na.set (s);
-            //na.set ("");
+            na.set("");
         }
 		double timeStop = mtime.Stop();
 

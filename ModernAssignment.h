@@ -24,7 +24,7 @@ class OldAssignment
 class NewAssignment 
 {
     public:
-        void set (std::string var)
+        void set (std::string var) noexcept
         {
             name = std::move(var);
         }
