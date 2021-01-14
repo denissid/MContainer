@@ -1,6 +1,7 @@
 #pragma once 
 #include <time.h>
 #include <stdexcept>
+#include <chrono>
 
 class TimeTracker 
 {
@@ -9,6 +10,9 @@ class TimeTracker
 		{
 			Start();
 		}
+        
+        TimeTracker(const TimeTracker&) = delete;
+        TimeTracker& operator= (const TimeTracker&) = delete;
 
 		void Start ()
 		{	
@@ -39,4 +43,23 @@ class TimeTracker
 		timespec time_spec_ = {0,0};
 };
 
+class TimeTrackerChrono
+{
+    public:
+        TimeTrackerChrono()
+        {
+        }
+        
+        double Stop()
+        {
+            using namespace std;
+            auto end = chrono::steady_clock::now();
+            auto delta = chrono::duration_cast<chrono::microseconds>(end-begin);
+            return delta.count();
+        }
+
+    private:
+         std::chrono::time_point<std::chrono::steady_clock> begin = std::chrono::steady_clock::now();
+
+};
 

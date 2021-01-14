@@ -3,13 +3,14 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <forward_list>
+#include <string>
 
 #include "TimeTracker.h"
 
 namespace MeasureSequenceContainers 
 {
 
-	template <class T>
+	template <class T, class Ttracker=TimeTracker>
 	double PushBackTime(T& v)
 	{
 		int k=10;
@@ -17,7 +18,7 @@ namespace MeasureSequenceContainers
 
 		for (int z=0; z<k; ++z)
 		{
-			TimeTracker mtime;
+			Ttracker mtime;
 			for (int i=0; i<100'000; ++i)
 			{
 				v.push_back(i);
@@ -29,6 +30,7 @@ namespace MeasureSequenceContainers
 		return diff/static_cast<double>(k);
 	}
 
+    template <class Ttracker=TimeTracker>
 	double PushFrontTime(std::forward_list<int>& v)
 	{
 		int k=10;
@@ -36,7 +38,7 @@ namespace MeasureSequenceContainers
 
 		for (int z=0; z<k; ++z)
 		{
-			TimeTracker mtime;
+			Ttracker mtime;
 			for (int i=0; i<100'000; ++i)
 			{
 				v.push_front(i);
@@ -48,7 +50,7 @@ namespace MeasureSequenceContainers
 		return diff/static_cast<double>(k);
 	}
 
-	template <class T>
+	template <class T, class Ttracker=TimeTracker>
 	double PushBackReserveTime(T& v)
 	{
 		int k=10;
@@ -58,7 +60,7 @@ namespace MeasureSequenceContainers
 		for (int z=0; z<k; ++z)
 		{
 			v.reserve (maxSize);
-			TimeTracker mtime;
+			Ttracker mtime;
 			for (int i=0; i<maxSize; ++i)
 			{
 				v.push_back(i);
@@ -70,7 +72,7 @@ namespace MeasureSequenceContainers
 		return diff/static_cast<double>(k);
 	}
 
-	template <typename T>
+	template <typename T, class Ttracker=TimeTracker>
 	double PushFrontTime(T& v)
 	{	
 		int k=10;
@@ -78,7 +80,7 @@ namespace MeasureSequenceContainers
 
 		for (int z=0; z<k; ++z)
 		{
-			TimeTracker mtime;
+			Ttracker mtime;
 			for (int i=0; i<100'000; ++i)
 			{
 				v.insert(v.begin(),i);
@@ -90,7 +92,7 @@ namespace MeasureSequenceContainers
 		return diff/static_cast<double>(k);
 	}
 
-	template <typename T>
+	template <typename T, class Ttracker=TimeTracker>
 	double SortTime(T& v)
 	{
 		srand(time(nullptr));
@@ -99,7 +101,7 @@ namespace MeasureSequenceContainers
 			v.push_back(rand());
 		}
 
-		TimeTracker mtime;
+		Ttracker mtime;
 		std::sort (v.begin(), v.end());
 		double timeStop = mtime.Stop();
 
@@ -107,7 +109,7 @@ namespace MeasureSequenceContainers
 		return timeStop;
 	}
 
-	template <typename T>
+	template <typename T, class Ttracker=TimeTracker>
 	double SortListTime(T& v)
 	{
 		srand(time(nullptr));
@@ -116,7 +118,7 @@ namespace MeasureSequenceContainers
 			v.push_back(rand());
 		}
 
-		TimeTracker mtime;
+		Ttracker mtime;
 		v.sort();
 		double timeStop = mtime.Stop();
 
@@ -140,7 +142,7 @@ namespace MeasureSequenceContainers
 		return timeStop;
 	}
 
-	template <typename T>
+	template <typename T, class Ttracker=TimeTracker>
 	double StableSortTime(T& v)
 	{
 		srand(time(nullptr));
@@ -150,7 +152,7 @@ namespace MeasureSequenceContainers
 		}
 
 		std::sort (v.begin(), v.end());
-		TimeTracker mtime;
+		Ttracker mtime;
 		std::stable_sort (v.begin(), v.end());
 		double timeStop = mtime.Stop();
 
@@ -158,7 +160,7 @@ namespace MeasureSequenceContainers
 		return timeStop;
 	}
 
-	template <typename T>
+	template <typename T, class Ttracker=TimeTracker>
 	double FindTime(T& v)
 	{
 		srand(time(nullptr));
@@ -168,7 +170,7 @@ namespace MeasureSequenceContainers
 		}
 		
 		int lastElement = *(--v.end());
-		TimeTracker mtime;
+		Ttracker mtime;
 		std::find(v.begin(), v.end(), lastElement);
 		double timeStop = mtime.Stop();
 
@@ -193,7 +195,7 @@ namespace MeasureSequenceContainers
 		return timeStop;
 	}
 
-	template <typename T> 
+	template <typename T, class Ttracker=TimeTracker> 
 	double EnumerateTime(T& v)
 	{
 		for (int i=0; i<100'000;++i)
@@ -201,7 +203,7 @@ namespace MeasureSequenceContainers
 			v.push_back(i);
 		}
 
-		TimeTracker mtime;	
+		Ttracker mtime;	
 		for (auto i=v.begin(); i!=v.end();++i)
 		{
 			int z = *i;
@@ -229,6 +231,61 @@ namespace MeasureSequenceContainers
 	}
 }
 
+#include "ModernAssignment.h"
+
+namespace MeasureAssignment
+{
+    std::string getString()
+    {
+        using namespace std;
+        string t;
+        for (int i=0; i<1000'000;++i)
+        {
+            t += to_string(1);
+        }
+        return t;
+    }
+
+    double AssignmentOldTime()
+    {
+        using namespace std;
+
+        OldAssignment oa;
+        static auto s = getString();
+
+		TimeTracker mtime;
+
+        for (int i=0;i<100;++i)
+        {
+            oa.set (s);
+            //oa.set ("");
+        }
+
+		double timeStop = mtime.Stop();
+
+        return timeStop;
+    }
+
+    double AssignmentNewTime()
+    {
+        using namespace std; 
+
+        NewAssignment na;
+        static auto s = getString();
+
+		TimeTracker mtime;
+
+        for (int i=0;i<100;++i)
+        {
+            na.set (s);
+            //na.set ("");
+        }
+		double timeStop = mtime.Stop();
+
+        return timeStop;
+
+    }
+}
 
 namespace MeasureAssociativeContainers 
 {

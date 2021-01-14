@@ -184,5 +184,32 @@ int main (int argc, char* argv[])
 		cout << "time of push  back in microseconds " << PushBackTime(v) << endl;
 
 	}
+
+    {
+		using namespace MeasureSequenceContainers;
+		cout << " vector<int> chrono" << endl;
+        using vec = vector<int>;
+		vec v;
+
+		cout << "time of push  back in microseconds " << PushBackTime< vec, TimeTrackerChrono >(v) << endl;
+		cout << "time of push with reserve in microseconds " << PushBackReserveTime<vec, TimeTrackerChrono> (v) << endl;
+		cout << "time of push front in microseconds " << PushFrontTime<vec, TimeTrackerChrono> (v) << endl;
+
+		cout << "time of sort in microseconds " << SortTime<vec, TimeTrackerChrono> (v) << endl;
+		cout << "time of stable sort in microseconds " << StableSortTime<vec, TimeTrackerChrono> (v) << endl;
+		cout << "time of find in microseconds " << FindTime<vec, TimeTrackerChrono> (v) << endl;
+		
+		cout << "time of enumerate " << EnumerateTime<vec, TimeTrackerChrono>(v) << endl;
+	}
+
+    {
+        using namespace MeasureAssignment;
+
+        cout << "assignment " << endl;
+        cout << "time set string old " << AssignmentOldTime() << endl;
+        cout << "time set string new " << AssignmentNewTime() << endl;
+    }
+
+
 	return 0;
 }
