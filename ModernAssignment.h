@@ -21,7 +21,7 @@ class OldAssignment
         std::string name;
 };
 
-class NewAssignment 
+class MoveAssignment 
 {
     public:
         void set (std::string var) noexcept
@@ -34,6 +34,19 @@ class NewAssignment
             return name;
         }
 
+
+    private:
+        std::string name;
+};
+
+class ForwardAssignment 
+{
+    public:
+        template <class T>
+        void set (T&& t)
+        {
+            name = std::forward <T> (t);
+        }
 
     private:
         std::string name;

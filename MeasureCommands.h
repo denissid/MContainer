@@ -246,11 +246,12 @@ namespace MeasureAssignment
         return t;
     }
 
-    double AssignmentOldTime()
+    template <class Assignment>
+    double AssignmentTime()
     {
         using namespace std;
 
-        OldAssignment oa;
+        Assignment oa;
         static auto s = getString();
 
 		TimeTracker mtime;
@@ -266,25 +267,6 @@ namespace MeasureAssignment
         return timeStop;
     }
 
-    double AssignmentNewTime()
-    {
-        using namespace std; 
-
-        NewAssignment na;
-        static auto s = getString();
-
-		TimeTracker mtime;
-
-        for (int i=0;i<100;++i)
-        {
-            na.set (s);
-            na.set("");
-        }
-		double timeStop = mtime.Stop();
-
-        return timeStop;
-
-    }
 }
 
 namespace MeasureAssociativeContainers 
