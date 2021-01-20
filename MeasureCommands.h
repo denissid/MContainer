@@ -253,11 +253,11 @@ namespace MeasureAssignment
 
         Assignment oa;
 
+        auto s = getString();
 		TimeTracker mtime;
 
         for (int i=0;i<1000;++i)
         {
-            auto s = getString();
             oa.set (s);
             oa.set("");
         }
@@ -279,7 +279,7 @@ namespace MeasureAssignment
 
         for (int i=0;i<1000;++i)
         {
-            oa.set (getString());
+            oa.set ("1234567890asdfagsdhdjdfj012345678901234567890qwertyuiopasdfghjklzxcvbnm");
             oa.set("");
         }
 

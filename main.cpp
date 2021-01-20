@@ -206,7 +206,7 @@ int main (int argc, char* argv[])
         using namespace MeasureAssignment;
 
         cout << "assignment " << endl;
-        cout << "time set string old " << AssignmentTime<OldAssignment>() << endl;
+        cout << "time set string copy " << AssignmentTime<OldAssignment>() << endl;
         cout << "time set string move " << AssignmentTimeMove<MoveAssignment>() << endl;
         cout << "time set string forward " << AssignmentTimeMove<ForwardAssignment>() << endl;
     }
