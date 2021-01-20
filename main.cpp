@@ -207,8 +207,8 @@ int main (int argc, char* argv[])
 
         cout << "assignment " << endl;
         cout << "time set string old " << AssignmentTime<OldAssignment>() << endl;
-        cout << "time set string move " << AssignmentTime<MoveAssignment>() << endl;
-        cout << "time set string forward " << AssignmentTime<ForwardAssignment>() << endl;
+        cout << "time set string move " << AssignmentTimeMove<MoveAssignment>() << endl;
+        cout << "time set string forward " << AssignmentTimeMove<ForwardAssignment>() << endl;
     }
 
 

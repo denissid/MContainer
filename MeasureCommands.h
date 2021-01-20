@@ -238,11 +238,11 @@ namespace MeasureAssignment
     std::string getString()
     {
         using namespace std;
-        string t;
-        for (int i=0; i<1000'000;++i)
+        string t="1234567890asdfagsdhdjdfj012345678901234567890qwertyuiopasdfghjklzxcvbnm";
+        /*for (int i=0; i<1000'000;++i)
         {
             t += to_string(1);
-        }
+        }*/
         return t;
     }
 
@@ -252,13 +252,34 @@ namespace MeasureAssignment
         using namespace std;
 
         Assignment oa;
-        static auto s = getString();
 
 		TimeTracker mtime;
 
-        for (int i=0;i<100;++i)
+        for (int i=0;i<1000;++i)
         {
+            auto s = getString();
             oa.set (s);
+            oa.set("");
+        }
+
+		double timeStop = mtime.Stop();
+
+        return timeStop;
+    }
+
+    template <class Assignment>
+    double AssignmentTimeMove()
+    {
+        using namespace std;
+
+        Assignment oa;
+        //static auto s = getString();
+
+		TimeTracker mtime;
+
+        for (int i=0;i<1000;++i)
+        {
+            oa.set (getString());
             oa.set("");
         }
 
